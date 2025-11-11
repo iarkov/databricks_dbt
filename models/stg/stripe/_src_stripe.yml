@@ -2,5 +2,12 @@ sources:
   - name: stripe
     database: raw
     schema: stripe
+    freshness:
+      warn_after:
+        count: 6
+        period: hour
+      error_after:
+        count: 12
+        period: hour
     tables:
       - name: payments

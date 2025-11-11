@@ -5,4 +5,4 @@ select
     status as payment_status,
     amount,
     created
-from default.stripe_payments
+from {{ source('stripe', 'payments') }}

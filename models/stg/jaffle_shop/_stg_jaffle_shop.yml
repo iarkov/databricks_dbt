@@ -23,7 +23,7 @@ models:
           - unique
           - not_null
       - name: status
-        description: Order status
+        description: "{{ doc('order_status') }}"
         data_tests:
           - accepted_values:
               arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.

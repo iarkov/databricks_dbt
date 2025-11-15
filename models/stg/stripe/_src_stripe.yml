@@ -1,5 +1,6 @@
 sources:
   - name: stripe
+    description: Clone stripe database
     database: raw
     schema: stripe
     config:
@@ -12,4 +13,5 @@ sources:
           period: hour
     tables:
       - name: payments
+        description: Raw payments data
         identifier: payments

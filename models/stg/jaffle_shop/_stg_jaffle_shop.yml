@@ -9,6 +9,10 @@ models:
         data_tests:
           - unique
           - not_null
+      - name: first_name
+        description: First name of the customer
+      - name: last_name
+        description: Last name of the customer
 
   - name: stg_orders
     description: This model cleans up order data
@@ -19,14 +23,18 @@ models:
           - unique
           - not_null
       - name: status
+        description: "{{ doc('order_status') }}"
         data_tests:
           - accepted_values:
               arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
                 values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
       - name: customer_id
+        description: ID of the related customer
         data_tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('stg_customers')
                 field: customer_id
+      - name: order_date
+        description: Order date

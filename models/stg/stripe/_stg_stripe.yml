@@ -2,14 +2,25 @@ version: 2
 
 models:
   - name: stg_payments
+    description: Staging payments table
     columns:
     - name: line_id
+      description: Primary Key
       data_tests:
         - unique
         - not_null
     - name: order_id
+      description: ID of the related order
       data_tests:
         - not_null
         - relationships:
             to: ref('stg_orders')
             field: order_id
+    - name: payment_method
+      description: Payment method
+    - name: payment_status
+      description: Payment status
+    - name: amount
+      description: Payment amount
+    - name: created
+      description: Payment date

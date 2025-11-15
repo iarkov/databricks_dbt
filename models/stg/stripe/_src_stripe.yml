@@ -12,3 +12,4 @@ sources:
           period: hour
     tables:
       - name: payments
+        identifier: payments

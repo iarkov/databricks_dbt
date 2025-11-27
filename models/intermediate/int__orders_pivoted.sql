@@ -1,4 +1,4 @@
-{%- set payment_methods = ["bank_transfer", "credit_card", "coupon", "gift_card"] -%}
+{%- set payment_methods = dbt_utils.get_column_values(table=ref('stg_payments'), column='payment_method') -%}
 
 with 
     payments as (

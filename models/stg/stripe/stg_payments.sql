@@ -4,5 +4,5 @@ select
     paymentmethod as payment_method,
     status as payment_status,
     {{ cents_to_dollars("amount") }} as amount,
-    created
+    created as date_created_at
 from {{ source('stripe', 'payments') }}

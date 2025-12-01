@@ -3,7 +3,7 @@ snapshots:
     relation: source('jaffle_shop', 'orders')
     config:
       schema: snapshots
-      database: analytics
+      database: workspace
       unique_key: id
       strategy: check
       check_cols: ['id', 'user_id', 'order_date', 'status']

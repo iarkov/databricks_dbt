@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='order_id',
+        incremental_strategy='merge'
+    )
+}}
+
 with order_payment as (
     select 
         order_id,
@@ -22,3 +30,6 @@ select
 from order
 left join order_payment
 on order.order_id = order_payment.order_id
+/*{% if is_incremental() %}
+    where order.order_date >= (select max(order_date) from {{ this }})
+{% endif %}*/

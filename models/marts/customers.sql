@@ -1,3 +1,12 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='customer_id',
+        incremental_strategy='merge'
+    )
+}}
+
+
 with customers as (
 
     select * from {{ ref('stg_customers') }}
@@ -6,7 +15,7 @@ with customers as (
 
 orders as (
 
-    select * from {{ ref('orders') }}
+    select * from {{ ref('stg_orders') }}
 
 ),
 
@@ -23,9 +32,12 @@ customer_orders as (
 
         min(orders.order_date) as first_order_date,
         max(orders.order_date) as most_recent_order_date,
-        count(orders.order_id) as number_of_orders,
-        sum(orders.total_amount) as lifetime_value
+        count(distinct orders.order_id) as number_of_orders,
+        sum(payments.amount) as lifetime_value
     from orders
+    left join payments 
+        on orders.order_id = payments.order_id and 
+        payments.payment_status <> 'fail'
     where orders.order_status <> 'returned'
 
     group by 1

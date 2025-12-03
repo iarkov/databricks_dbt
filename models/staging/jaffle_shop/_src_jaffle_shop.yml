@@ -57,6 +57,19 @@ sources:
         columns:
           - name: id
             description: primary key
+            data_type: string
             data_tests:
               - unique
               - not_null 
+          - name: name
+            description: name of supply
+            data_type: string
+          - name: cost
+            description: cost of supply
+            data_type: integer
+          - name: perishable
+            description: if supply is perishable
+            data_type: boolean
+          - name: sku
+            description: product identifier
+            data_type: string

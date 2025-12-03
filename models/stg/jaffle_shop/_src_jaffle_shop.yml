@@ -28,3 +28,35 @@ sources:
             data_tests:
               - unique
               - not_null  
+      - name: items
+        description: Raw items data
+        columns:
+          - name: id
+            description: primary key
+            data_tests:
+              - unique
+              - not_null 
+      - name: products
+        description: Raw products data
+        columns:
+          - name: sku
+            description: primary key
+            data_tests:
+              - unique
+              - not_null 
+      - name: stores
+        description: Raw stores data
+        columns:
+          - name: id
+            description: primary key
+            data_tests:
+              - unique
+              - not_null 
+      - name: supplies
+        description: Raw supplies data
+        columns:
+          - name: id
+            description: primary key
+            data_tests:
+              - unique
+              - not_null 

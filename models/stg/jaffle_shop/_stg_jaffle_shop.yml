@@ -9,10 +9,8 @@ models:
         data_tests:
           - unique
           - not_null
-      - name: first_name
-        description: First name of the customer
-      - name: last_name
-        description: Last name of the customer
+      - name: name
+        description: Name of the customer
 
   - name: stg_orders
     description: This model cleans up order data

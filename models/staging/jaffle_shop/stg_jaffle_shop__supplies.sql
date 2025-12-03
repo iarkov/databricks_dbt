@@ -9,8 +9,8 @@ source as (
 renamed as (
 
     select
-        id,
-        name,
+        id supply_id,
+        name supply_name,
         cost,
         perishable,
         sku

@@ -1,5 +1,5 @@
 employee_id,email,customer_id
-3425, mike@jaffleshop.com, 96c8937f-d99c-4515-acec-db24d07768f9
-2354, sarah@jaffleshop.com, 7c76af9c-d5fd-460e-82d9-5a7b2a4a118b
-2342, frank@jaffleshop.com, c8561416-e50b-42c5-9d99-12c614d3c1e4
-1234, jennifer@jaffleshop.com, b028022d-60ff-416a-9106-f3e73dac72d2
+3425,mike@jaffleshop.com,96c8937f-d99c-4515-acec-db24d07768f9
+2354,sarah@jaffleshop.com,7c76af9c-d5fd-460e-82d9-5a7b2a4a118b
+2342,frank@jaffleshop.com,c8561416-e50b-42c5-9d99-12c614d3c1e4
+1234,jennifer@jaffleshop.com,b028022d-60ff-416a-9106-f3e73dac72d2

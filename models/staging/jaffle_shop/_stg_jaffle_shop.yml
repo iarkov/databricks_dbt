@@ -18,6 +18,8 @@ models:
       - dbt_utils.expression_is_true:
           arguments:
             expression: "subtotal + tax_paid = order_total"
+          config:
+            severity: error
     columns:
       - name: order_id
         description: Primary key

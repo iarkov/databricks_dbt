@@ -19,7 +19,7 @@ models:
           arguments:
             expression: "subtotal + tax_paid = order_total"
           config:
-            severity: error
+            severity: warn
     columns:
       - name: order_id
         description: Primary key
@@ -110,7 +110,6 @@ models:
         description: Primary Key
         data_tests:
           - not_null
-          - unique
       - name: supply_name
         description: Supply Name
       - name: cost

@@ -11,7 +11,7 @@ renamed as (
     select
         id order_id,
         customer customer_id,
-        ordered_at,
+        ordered_at order_date,
         store_id,
         subtotal,
         tax_paid,

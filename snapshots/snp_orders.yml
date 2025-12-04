@@ -1,5 +1,5 @@
 snapshots:
-  - name: orders_snapshot
+  - name: snp_orders
     relation: source('jaffle_shop', 'orders')
     config:
       schema: snapshots

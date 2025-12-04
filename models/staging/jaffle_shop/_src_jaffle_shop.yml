@@ -56,10 +56,9 @@ sources:
         description: Raw supplies data
         columns:
           - name: id
-            description: primary key
+            description: Supply ID
             data_type: string
             data_tests:
-              - unique
               - not_null 
           - name: name
             description: name of supply

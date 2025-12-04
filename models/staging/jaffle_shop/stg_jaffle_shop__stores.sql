@@ -11,7 +11,7 @@ renamed as (
     select
         id store_id,
         name store_name,
-        opened_at,
+        opened_at open_date,
         tax_rate
 
     from source

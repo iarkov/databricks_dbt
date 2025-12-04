@@ -1,10 +1,8 @@
-with payments as (
-    select * from {{ ref('stg_payments') }}
+with order as (
+    select 
+        *
+    from {{ ref('stg_jaffle_shop__orders') }}
 )
-
-select 
-    order_id, 
-    sum(amount) as total_revenue
-from payments
-where payment_status <> 'fail'
-group by 1
+select subtotal, tax_paid, order_total 
+from order
+where subtotal + tax_paid = order_total

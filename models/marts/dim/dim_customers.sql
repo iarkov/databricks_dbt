@@ -9,21 +9,21 @@
 
 with customers as (
 
-    select * from {{ ref('stg_customers') }}
+    select * from {{ ref('stg_jaffle_shop__customers') }}
 
 ),
 
 orders as (
 
-    select * from {{ ref('stg_orders') }}
+    select * from {{ ref('stg_jaffle_shop__orders') }}
 
-),
+)/*,
 
 payments as (
 
     select * from {{ ref('stg_payments') }}
 
-),
+)*/,
 
 employees as (
 
@@ -39,12 +39,12 @@ customer_orders as (
         min(orders.order_date) as first_order_date,
         max(orders.order_date) as most_recent_order_date,
         count(distinct orders.order_id) as number_of_orders,
-        sum(payments.amount) as lifetime_value
-    from orders
+        sum(orders.order_total) as lifetime_value
+    from orders /*
     left join payments 
         on orders.order_id = payments.order_id and 
         payments.payment_status <> 'fail'
-    where orders.order_status <> 'returned'
+    where orders.order_status <> 'returned'*/
 
     group by 1
 
@@ -54,19 +54,19 @@ final as (
 
     select
         customers.customer_id,
-        customers.first_name,
-        customers.last_name,
+        split_part(customers.name, ' ', 1) first_name,
+        split_part(customers.name, ' ', 2) last_name,
         customer_orders.first_order_date,
         customer_orders.most_recent_order_date,
         coalesce(customer_orders.number_of_orders, 0) as number_of_orders,
         coalesce(customer_orders.lifetime_value, 0) as lifetime_value,
-        case when employees.employee_id is null then 0 else 1 end is_employee
+        case when employees.employee_id is null then false else true end is_employee
 
     from customers
 
-    left join customer_orders using (customer_id)
+    left join customer_orders on customers.customer_id = customer_orders.customer_id
 
-    left join employees using (customer_id)
+    left join employees on customers.customer_id = employees.customer_id
 
 )
 

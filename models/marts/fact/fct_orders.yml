@@ -1,0 +1,19 @@
+models:
+  - name: fct_orders
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: order_id
+        data_type: varchar
+        constraints:
+          - type: not_null
+          - type: unique
+      - name: customer_id
+        data_type: varchar
+        constraints:
+          - type: not_null
+      - name: store_id
+        data_type: varchar
+        constraints:
+          - type: not_null

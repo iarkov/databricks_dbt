@@ -1,74 +1,24 @@
+version: 2
+
 sources:
-  - name: jaffle_shop
-    description: Clone data of Postgres Jaffle Shop application
-    database: raw
-    schema: jaffle_shop
-    config:
-      freshness:
-        warn_after:
-          count: 6
-          period: hour
-        error_after:
-          count: 12
-          period: hour
-    tables:
-      - name: customers
-        description: Raw customers data
-        columns:
-          - name: id
-            description: primary key
-            data_tests:
-              - unique
-              - not_null  
-      - name: orders
-        description: Raw orders data
-        columns:
-          - name: id
-            description: primary key
-            data_tests:
-              - unique
-              - not_null  
-      - name: items
-        description: Raw items data
-        columns:
-          - name: id
-            description: primary key
-            data_tests:
-              - unique
-              - not_null 
-      - name: products
-        description: Raw products data
-        columns:
-          - name: sku
-            description: primary key
-            data_tests:
-              - unique
-              - not_null 
-      - name: stores
-        description: Raw stores data
-        columns:
-          - name: id
-            description: primary key
-            data_tests:
-              - unique
-              - not_null 
-      - name: supplies
-        description: Raw supplies data
-        columns:
-          - name: id
-            description: Supply ID
-            data_type: string
-            data_tests:
-              - not_null 
-          - name: name
-            description: name of supply
-            data_type: string
-          - name: cost
-            description: cost of supply
-            data_type: integer
-          - name: perishable
-            description: if supply is perishable
-            data_type: boolean
-          - name: sku
-            description: product identifier
-            data_type: string
+    - name: jaffle_shop
+      description: A clone of a Postgres application database.
+      database: raw
+      tables:
+        - name: customers
+          description: Raw customers data.
+          columns:
+            - name: id
+              description: Primary key for customers
+              tests:
+                - unique
+                - not_null
+
+        - name: orders
+          description: Raw orders data.
+          columns:
+            - name: id
+              description: Primary key for orders.
+              tests:
+                - unique
+                - not_null

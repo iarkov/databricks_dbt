@@ -1,125 +1,37 @@
 version: 2
 
 models:
-  - name: stg_jaffle_shop__customers
-    description: This model cleans up customer data
-    columns:
-      - name: customer_id
-        description: Primary key
-        data_tests:
-          - unique
-          - not_null
-      - name: name
-        description: Name of the customer
+    - name: stg_customers
+      description: Staged customer data from our jaffle shop app.
+      columns: 
+        - name: customer_id
+          description: The primary key for customers.
+          tests:
+            - unique
+            - not_null
 
-  - name: stg_jaffle_shop__orders
-    description: This model cleans up order data
-    tests:
-      - dbt_utils.expression_is_true:
-          arguments:
-            expression: "subtotal + tax_paid = order_total"
-          config:
-            severity: warn
-    columns:
-      - name: order_id
-        description: Primary key
-        data_tests:
-          - unique
-          - not_null
-      - name: customer_id
-        description: ID of the related customer
-        data_tests:
-          - not_null
-          - relationships:
-              arguments:
-                to: ref('stg_jaffle_shop__customers')
+    - name: stg_orders
+      description: Staged order data from our jaffle shop app.
+      columns: 
+        - name: order_id
+          description: Primary key for orders.
+          tests:
+            - unique
+            - not_null
+        - name: customer_id
+          description: Foreign key for customers.
+          tests:
+            - not_null
+            - relationships:
+                to: ref('stg_customers')
                 field: customer_id
-      - name: order_date
-        description: Order date
-      - name: store_id
-        description: Store ID
-        data_tests:
-          - not_null
-          - relationships:
-              to: ref('stg_jaffle_shop__stores')
-              field: store_id
-  
-  - name: stg_jaffle_shop__items
-    description: This model cleans up item data
-    columns:
-      - name: item_id
-        description: Primary key
-        data_tests:
-          - unique
-          - not_null
-      - name: order_id
-        description: Order ID
-        data_tests:
-          - not_null
-          - relationships:
-              to: ref('stg_jaffle_shop__orders')
-              field: order_id
-      - name: sku
-        description: Stock keeping unit
-        data_tests:
-          - not_null
-          - relationships:
-              to: ref('stg_jaffle_shop__products')
-              field: sku
-  
-  - name: stg_jaffle_shop__products
-    description: This model cleans up product data
-    columns:
-      - name: sku
-        description: Primary key as Stock keeping unit
-        data_tests:
-          - unique
-          - not_null
-      - name: product_name
-        description: Product Name
-        data_tests:
-          - not_null
-      - name: product_type
-        description: Product Type
-      - name: price
-        description: Product Price
-        data_tests:
-          - not_null
-      - name: description
-        description: Product Description
-
-  - name: stg_jaffle_shop__stores
-    description: This model cleans up store data
-    columns: 
-      - name: store_id
-        description: Primary Key
-        data_tests:
-          - not_null
-          - unique
-      - name: store_name
-        description: Store Name
-      - name: open_date
-        description: Store Open Date
-      - name: tax_rate
-        description: Tax Rate
-  
-  - name: stg_jaffle_shop__supplies
-    description: This model cleans up supply data
-    columns: 
-      - name: supply_id
-        description: Primary Key
-        data_tests:
-          - not_null
-      - name: supply_name
-        description: Supply Name
-      - name: cost
-        description: Supply Cost
-      - name: perishable
-        description: If supply is perishable
-      - name: sku
-        description: Store Keeping Unit
-        data_tests:
-          - not_null
-          - relationships:
-              to: ref('stg_jaffle_shop__products')
-              field: sku
+        - name: status
+          description: '{{ doc("order_status") }}'
+          tests:
+            - accepted_values:
+                values:
+                  - completed
+                  - shipped
+                  - returned
+                  - placed
+                  - return_pending

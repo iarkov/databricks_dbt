@@ -3,5 +3,5 @@ select
     customer_id,
     order_date,
     count(*) nb_customers
-from {{ ref('stg_jaffle_shop__orders') }}
+from {{ ref('stg_orders') }}
 group by 2, 3

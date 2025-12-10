@@ -1,32 +1,30 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='order_id',
-        incremental_strategy='merge',
-        on_schema_change='append_new_columns'
-    )
-}}
+with orders as  (
+    select * from {{ ref('stg_orders' )}}
+),
 
-with order as (
-    select 
+payments as (
+    select * from {{ ref('stg_payments') }}
+),
+
+order_payments as (
+    select
         order_id,
-        customer_id,
-        order_date,
-        store_id,
-        subtotal,
-        tax_paid,
-        order_total
-    from {{ ref('stg_jaffle_shop__orders') }}
+        sum(case when payment_status = 'success' then amount end) as amount
+
+    from payments
+    group by 1
+),
+
+final as (
+
+    select
+        orders.order_id,
+        orders.customer_id,
+        orders.order_date,
+        coalesce(order_payments.amount, 0) as amount
+
+    from orders
+    left join order_payments using (order_id)
 )
-select 
-    order.order_id,
-    order.customer_id,
-    order.order_date,
-    order.store_id,
-    order.subtotal,
-    order.tax_paid,
-    order.order_total
-from order
-/*{% if is_incremental() %}
-    where order.order_date >= (select max(order_date) from {{ this }})
-{% endif %}*/
+
+select * from final

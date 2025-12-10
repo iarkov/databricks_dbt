@@ -1,8 +1,7 @@
 with order as (
     select 
         *
-    from {{ ref('stg_jaffle_shop__orders') }}
+    from {{ ref('stg_orders') }}
 )
-select subtotal, tax_paid, order_total 
+select * 
 from order
-where subtotal + tax_paid = order_total

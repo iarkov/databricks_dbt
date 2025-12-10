@@ -8,4 +8,7 @@ packages:
   - name: audit_helper
     package: dbt-labs/audit_helper
     version: 0.12.2
-sha1_hash: 874cb2293a13527f320fde765f712f414bf61cd3
+  - name: dbt_meta_testing
+    package: tnightengale/dbt_meta_testing
+    version: 0.3.6
+sha1_hash: 1a1d7e0913dc3fdae2e93095f72ec495310cebcc

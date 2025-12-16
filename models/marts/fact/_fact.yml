@@ -17,3 +17,10 @@ models:
             - relationships:
                 to: ref('dim_customers')
                 field: customer_id
+
+        - name: amount
+          description: Order amount.
+          data_tests:
+            - greater_than_five:
+                config:
+                  severity: warn

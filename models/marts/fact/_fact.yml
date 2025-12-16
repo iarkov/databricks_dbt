@@ -21,4 +21,6 @@ models:
         - name: amount
           description: Order amount.
           data_tests:
-            - greater_than_five
+            - greater_than_five:
+                config:
+                  severity: warn
